@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Copy repository to the server
-      uses: appleboy/scp-action@v0.1
+      uses: appleboy/scp-action@e074da9
       with:
         host: ${{ secrets.DROPLET_IP }}
         username: ${{ secrets.DROPLET_USER }}
@@ -23,7 +23,7 @@ jobs:
         target: "/opt/lifeapp"
 
     - name: Install dependencies and redeploy
-      uses: appleboy/ssh-action@v0.1
+      uses: appleboy/ssh-action@e074da9
       with:
         host: ${{ secrets.DROPLET_IP }}
         username: ${{ secrets.DROPLET_USER }}
