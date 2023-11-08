@@ -2,7 +2,7 @@
 
 ## Vision
 
-..
+...
 
 ### Empowering Individuals, Crafting a Better World
 
