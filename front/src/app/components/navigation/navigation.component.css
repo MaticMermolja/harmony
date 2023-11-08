@@ -1,0 +1,38 @@
+.connection-status {
+    position: relative;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-top: 3px;
+    cursor: pointer;
+}
+
+.connection-status::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    white-space: nowrap;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #555;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    display: none;
+    z-index: 1000;
+}
+
+.connection-status:hover::after {
+    display: block;
+}
+
+.connected {
+    background-color: green;
+}
+
+.disconnected {
+    background-color: red;
+}

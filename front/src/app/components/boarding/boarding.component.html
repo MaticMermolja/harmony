@@ -1,0 +1,16 @@
+<div class="stepper mb-4">
+    <div *ngFor="let step of steps" class="step" [class.active]="currentStep === step">{{ step }}</div>
+  </div>
+  
+  <div class="alert alert-info" role="alert">
+    <p>Answer the following questions by dragging the slider from left to right. The more to the right you go, the more the statement applies to you.</p>
+  </div>
+  
+  <form (ngSubmit)="submitForm()">
+    <div *ngFor="let question of getCurrentQuestions()" class="mb-3">
+      <label [for]="question.id" class="form-label">{{ question.text }}</label>
+      <input type="range" class="form-range custom-range" [id]="question.id" [(ngModel)]="question.value" [name]="question.id" step="1" min="0" max="100">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!isConnected()">Next step</button>
+  </form>
+  

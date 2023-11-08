@@ -1,0 +1,38 @@
+<div class="site-title">
+  <h1>Register</h1>
+</div>
+<form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First Name*</label>
+    <input type="text" class="form-control" id="firstName" required
+           [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel">
+    <div *ngIf="firstName.invalid && firstName.touched" class="text-danger">
+      First name is required.
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="lastName" class="form-label">Last Name*</label>
+    <input type="text" class="form-control" id="lastName" required
+           [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel">
+    <div *ngIf="lastName.invalid && lastName.touched" class="text-danger">
+      Last name is required.
+    </div>
+  </div>
+  <div class="mb-3">
+      <label for="email" class="form-label">Email*</label>
+      <input type="email" class="form-control" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+             [(ngModel)]="user.email" name="email" #email="ngModel">
+      <div *ngIf="email.invalid && email.touched" class="text-danger">
+        Email is required and format should be correct.
+      </div>
+  </div>
+  <div class="mb-3">
+      <label for="password" class="form-label">Password*</label>
+      <input type="password" class="form-control" id="password" required minlength="5"
+             [(ngModel)]="user.password" name="password" #password="ngModel">
+      <div *ngIf="password.invalid && password.touched" class="text-danger">
+        Password is required and must be at least 5 characters long.
+      </div>
+  </div>    
+  <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || !isConnected()">Register</button>
+</form>

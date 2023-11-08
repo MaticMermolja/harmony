@@ -1,0 +1,69 @@
+<section class="db-management container mt-5">
+    <h1 class="mb-4">Database Management</h1>
+
+    <div id="alert-placeholder"></div>
+    
+    <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Information!</h4>
+        <p>When initializing the database, new actions and questions will be added. Questions are utilized during the user onboarding process to calculate the initial state of user elements. After the onboarding process is complete, users are redirected to the index page where they can engage in various actions.</p>
+        <p>Actions modify the user's current elements statistics. Note that the data utilized here is for demo purposes and does not represent meaningful real-world data. All test data was generated with the assistance of AI.</p>
+        <hr>
+        <p class="mb-0">Upon database initialization, an admin user is also added, which is essential for executing admin-only actions. Use <strong>admin@admin.com</strong> as the email and <strong>admin</strong> as the password when logging in. Although UI for admins is not yet implemented, all actions can be executed via SwaggerUI. If you prefer using SwaggerUI, navigate to <strong>/docs</strong>.</p>
+    </div>
+
+    <div class="button-group mb-5">
+        <button id="initDataBtn" class="btn btn-success btn-lg mr-4">Initialize Starting Data</button>
+        <button id="deleteDataBtn" class="btn btn-danger btn-lg">Delete All Data</button>
+    </div>
+
+    <div class="alert alert-warning" role="alert">
+        <strong>Warning!</strong> When you delete the database, all stored data will be removed.
+    </div>
+</section>
+
+<script>
+document.getElementById('initDataBtn').addEventListener('click', function (e) {
+    axios.post('/db/init')
+        .then(function (response) {
+            showAlert('success', 'Data initialized successfully.');
+        })
+        .catch(function (error) {
+            showAlert('danger', 'Error initializing data. Please try again.');
+        });
+});
+
+document.getElementById('deleteDataBtn').addEventListener('click', function (e) {
+    if (confirm('Are you sure you want to delete all data? This action cannot be undone.')) {
+        axios.post('/db/delete')
+            .then(function (response) {
+                showAlert('success', 'Data deleted successfully.');
+            })
+            .catch(function (error) {
+                showAlert('danger', 'Error deleting data. Please try again.');
+            });
+    }
+});
+
+function showAlert(type, message) {
+    const alertPlaceholder = document.getElementById('alert-placeholder');
+    
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${type}`;
+    alertDiv.role = 'alert';
+    alertDiv.innerText = message;
+
+    // Remove any existing alerts
+    while (alertPlaceholder.firstChild) {
+        alertPlaceholder.removeChild(alertPlaceholder.firstChild);
+    }
+
+    alertPlaceholder.appendChild(alertDiv);
+
+    // Remove the alert after a few seconds
+    setTimeout(() => {
+        while (alertPlaceholder.firstChild) {
+            alertPlaceholder.removeChild(alertPlaceholder.firstChild);
+        }
+    }, 3000);
+}
+</script>

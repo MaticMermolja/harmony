@@ -1,0 +1,8 @@
+.btn-graph {
+    min-width: 120px; 
+    max-width: 120px; 
+    margin-right: 10px; 
+    margin-left: auto; 
+    margin-bottom: 10px;
+    cursor: pointer;
+}

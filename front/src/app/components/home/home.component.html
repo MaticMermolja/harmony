@@ -1,0 +1,44 @@
+<div class="card mt-4">
+    <div class="card-header">
+        <h1 class="mb-0">Your elements</h1>
+        <p *ngIf="inspirationQuote; else loadingQuote">{{ inspirationQuote }}</p>
+        <ng-template #loadingQuote>Loading inspirational quote...</ng-template>
+    </div>
+    <div class="card-body">
+        <p class="card-text"><strong>Body:</strong> <span id="bodyStat">{{ userStats?.body }}</span></p>
+        <p class="card-text"><strong>Mind:</strong> <span id="mindStat">{{ userStats?.mind }}</span></p>
+        <p class="card-text"><strong>Sense:</strong> <span id="senseStat">{{ userStats?.sense }}</span></p>
+        <p class="card-text"><strong>Relations:</strong> <span id="relationsStat">{{ userStats?.relations }}</span></p>
+        <p class="card-text"><strong>Journey:</strong> <span id="journeyStat">{{ userStats?.journey }}</span></p>
+        <p class="card-text"><strong>Love:</strong> <span id="loveStat">{{ userStats?.love }}</span></p>
+    </div>
+    <a class="btn-graph" (click)="toggleGraphVisibility()">
+        {{ isGraphVisible ? 'Hide graph' : 'Show graph' }}
+    </a>
+    <div *ngIf="isGraphVisible" style="display: block;">
+        <canvas
+        baseChart
+        class="chart"
+        [data]="radarChartData"
+        [options]="radarChartOptions"
+        [type]="radarChartType"
+      >
+      </canvas>
+    </div>
+</div>
+
+<input type="text" class="form-control" placeholder="Search for actions..."
+       [(ngModel)]="searchQuery" (ngModelChange)="filterActions($event)">
+  
+<ul id="actionsList" class="mt-3">
+    <li *ngFor="let action of filteredActions" class="list-group-item">
+        <app-single-action [action]="action" (actionDone)="markActionAsDone($event)"></app-single-action>
+    </li>
+</ul>
+
+<div class="mt-3 d-flex justify-content-between">
+    <button [disabled]="currentPage === 0" (click)="goToPreviousPage()" class="btn btn-secondary">Previous</button>
+    <button [disabled]="(currentPage + 1) * itemsPerPage >= actions.length" (click)="goToNextPage()" class="btn btn-secondary">Next</button>
+</div>
+  
+  

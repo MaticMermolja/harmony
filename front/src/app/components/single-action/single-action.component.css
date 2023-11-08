@@ -1,0 +1,80 @@
+.action-card {
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border: none;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+    position: relative; /* Required for pseudo-element positioning */
+}
+
+.action-card::before {
+    content: '';
+    position: absolute; /* Position it over the image */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 1; /* Ensure it's above the background image, but below the content */
+}
+
+.action-card .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* To be above the ::before pseudo-element */
+    z-index: 2; /* Higher z-index to ensure the content is above the overlay */
+}
+
+/* Rest of your styles... */
+
+.action-card .card-title,
+.action-card .card-text {
+    color: #f8f9fa;
+    z-index: 2; /* Ensure text is above the overlay */
+}
+
+/* The button styles remain the same */
+
+  .action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    /* Removed specific image path from gradient background */
+  }
+  
+  .action-card .card-body {
+    display: flex;
+    justify-content: space-between; /* Aligns items to each side */
+    align-items: center; /* Vertically centers items in the container */
+}
+
+.action-card .card-content {
+    flex: 1; /* Allows the content to grow and fill the space */
+}
+
+.action-card .action-done-button {
+    margin-left: auto; /* Pushes the button to the right */
+}
+  /* Rest of the styles */
+  
+  
+  /* Style adjustments for the button inside the card */
+  .action-card .btn-success {
+    border: none; /* Optional: removes the border for a cleaner button look */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: adds a small shadow to the button */
+  }
+  
+  /* Card title and text color adjustments */
+  .action-card .card-title,
+  .action-card .card-text {
+    color: #f8f9fa; /* Light color for better contrast against the dark background */
+  }
+  
+  /* If you have specific images that are light and need dark text, you can add a class to those img tags and style them here */
+  .card-img-top {
+    max-height: 200px; /* Adjust as needed */
+    object-fit: cover; /* This will ensure the image covers the area nicely */
+  }
+  

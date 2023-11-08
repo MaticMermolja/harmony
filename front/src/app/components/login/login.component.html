@@ -1,0 +1,23 @@
+<form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+  <div class="mb-3">
+    <label for="email" class="form-label">Email*</label>
+    <input type="email" class="form-control" id="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+           [(ngModel)]="user.email" name="email" #email="ngModel"
+           aria-describedby="emailHelp">
+    <div *ngIf="email.invalid && email.touched" class="text-danger">
+      Email is required and format should be correct.
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password*</label>
+    <input type="password" class="form-control" required
+            [(ngModel)]="user.password" name="password" id="password" #password="ngModel" minlength="5">
+    <div *ngIf="password.invalid && password.touched" class="text-danger">
+      Password is required and must be at least 5 characters long.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary w-100" [disabled]="loginForm.invalid || !isConnected()">Login</button>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</form>

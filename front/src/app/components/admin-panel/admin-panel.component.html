@@ -1,0 +1,76 @@
+<div class="container mt-4">
+    <h2>Admin Control Panel</h2>
+    <button class="btn btn-primary" (click)="listAllActions()" [disabled]="!isConnected()">List All Actions</button>
+    <button class="btn btn-success" (click)="openCreateActionModal()" [disabled]="!isConnected()">Create New Action</button>
+  
+    <div *ngIf="actions && actions.length">
+      <ul class="list-group mt-3">
+        <li *ngFor="let action of actions" class="list-group-item" (click)="openActionModal(action)">
+          {{ action.name }}
+        </li>
+      </ul>
+    </div>
+    
+    <ng-template #actionEditTemplate let-modal>
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Action</h5>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="selectedAction">
+          <form>
+            <div class="form-group">
+              <label for="actionName">Name</label>
+              <input type="text" class="form-control" id="actionName" name="actionName"
+                     [(ngModel)]="selectedAction.name" required>
+            </div>
+            <div class="form-group">
+              <label for="actionDesc">Description</label>
+              <textarea class="form-control" id="actionDesc" name="actionDesc"
+                        [(ngModel)]="selectedAction.desc" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="changeBody">Change Body (0-5)</label>
+              <input type="number" class="form-control" id="changeBody" name="changeBody"
+                     [(ngModel)]="selectedAction.changeBody" min="0" max="5" required>
+            </div>
+            <!-- Add other fields -->
+            <div class="form-group">
+              <label for="changeMind">Change Mind (0-5)</label>
+              <input type="number" class="form-control" id="changeMind" name="changeMind"
+                     [(ngModel)]="selectedAction.changeMind" min="0" max="5" required>
+            </div>
+            <div class="form-group">
+              <label for="changeSense">Change Sense (0-5)</label>
+              <input type="number" class="form-control" id="changeSense" name="changeSense"
+                     [(ngModel)]="selectedAction.changeSense" min="0" max="5" required>
+            </div>
+            <div class="form-group">
+              <label for="changeRelations">Change Relations (0-5)</label>
+              <input type="number" class="form-control" id="changeRelations" name="changeRelations"
+                     [(ngModel)]="selectedAction.changeRelations" min="0" max="5" required>
+            </div>
+            <div class="form-group">
+              <label for="changeJourney">Change Journey (0-5)</label>
+              <input type="number" class="form-control" id="changeJourney" name="changeJourney"
+                     [(ngModel)]="selectedAction.changeJourney" min="0" max="5" required>
+            </div>
+            <div class="form-group">
+              <label for="changeLove">Change Love (0-5)</label>
+              <input type="number" class="form-control" id="changeLove" name="changeLove"
+                     [(ngModel)]="selectedAction.changeLove" min="0" max="5" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Close</button>
+          <button type="button" class="btn btn-primary" 
+                (click)="selectedAction?._id ? updateAction(modal) : createAction(modal)" [disabled]="!isConnected()">
+            Save changes
+        </button>
+        </div>
+      </ng-template>
+      
+  </div>
+  

@@ -1,0 +1,490 @@
+{
+  "stats": {
+    "suites": 12,
+    "tests": 8,
+    "passes": 8,
+    "pending": 0,
+    "failures": 0,
+    "start": "2023-11-07T11:49:41.180Z",
+    "end": "2023-11-07T11:49:44.555Z",
+    "duration": 3375,
+    "testsRegistered": 8,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4f05ea60-8c04-4982-87c5-663e3a6fbbad",
+      "title": "",
+      "fullFile": "/opt/learn/lifeapp/test/test.js",
+      "file": "/test/test.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "66db3058-0776-442a-a89c-b334a0b6fd7f",
+          "title": "User Operations",
+          "fullFile": "/opt/learn/lifeapp/test/test.js",
+          "file": "/test/test.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook in \"User Operations\"",
+              "fullTitle": "User Operations \"before all\" hook in \"User Operations\"",
+              "timedOut": false,
+              "duration": 1,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// Implement necessary steps to initialize test environment\ndone();",
+              "err": {},
+              "uuid": "a980a53e-25ff-4cb9-9f1d-d190d7036895",
+              "parentUUID": "66db3058-0776-442a-a89c-b334a0b6fd7f",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook in \"User Operations\"",
+              "fullTitle": "User Operations \"after all\" hook in \"User Operations\"",
+              "timedOut": false,
+              "duration": 142,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "console.log('User ID:', newUserCredentials.userId); // Debug: Log the user ID\nif (!newUserCredentials.userId) {\n    console.error('No user ID to delete');\n    return done();\n}\n    \n// First, login as admin to get the token\nchai.request(server)\n    .post('/auth/login')\n    .send({\n        email: 'admin@admin.com',\n        password: 'admin'\n    })\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        const adminToken = res.body.accessToken; // Get the admin token\n    \n        // Now delete the user with the admin token\n        chai.request(server)\n            .delete(`/user/delete/${newUserCredentials.userId}`)\n            .set('Authorization', `Bearer ${adminToken}`) // Use the admin token here\n            .end((err, res) => {\n                expect(err).to.be.null;\n                res.should.have.status(204);\n                done();\n            });\n    });",
+              "err": {},
+              "uuid": "c7b8b143-3598-4fe5-bec3-fb1368906873",
+              "parentUUID": "66db3058-0776-442a-a89c-b334a0b6fd7f",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "c9add690-842b-481f-92cc-b73d1be01168",
+              "title": "User Registration and Authentication",
+              "fullFile": "/opt/learn/lifeapp/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "47782304-3297-43ff-842f-53d77176375e",
+                  "title": "Registration",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should register a new user",
+                      "fullTitle": "User Operations User Registration and Authentication Registration should register a new user",
+                      "timedOut": false,
+                      "duration": 1412,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .post('/auth/register')\n    .send(newUserCredentials)\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.should.have.property('accessToken');\n        if(res.body.userId) {\n            newUserCredentials.userId = res.body.userId;\n        } else {\n            console.error('No userId in the response body');\n        }\n        done();\n    });",
+                      "err": {},
+                      "uuid": "9f114185-0ee1-414a-9358-5e2d0874663f",
+                      "parentUUID": "47782304-3297-43ff-842f-53d77176375e",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "9f114185-0ee1-414a-9358-5e2d0874663f"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 1412,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "dda79024-ef7b-4115-babe-4d59a0fe3714",
+                  "title": "Login",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should login the newly registered user",
+                      "fullTitle": "User Operations User Registration and Authentication Login should login the newly registered user",
+                      "timedOut": false,
+                      "duration": 666,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .post('/auth/login')\n    .send({\n        email: newUserCredentials.email,\n        password: newUserCredentials.password\n    })\n    .end((err, res) => {\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.should.have.property('accessToken');\n        userToken = res.body.accessToken;\n        done();\n    });",
+                      "err": {},
+                      "uuid": "30179e9e-9928-4fb5-849f-b348178d4905",
+                      "parentUUID": "dda79024-ef7b-4115-babe-4d59a0fe3714",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "30179e9e-9928-4fb5-849f-b348178d4905"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 666,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "13592f3f-12c3-4e3e-81b6-471942dd065d",
+              "title": "Boarding Process",
+              "fullFile": "/opt/learn/lifeapp/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "7841c086-063c-46f8-a1c9-e92b8dc22a81",
+                  "title": "Step 1 - Initial Questionnaire",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should complete step 1 of the boarding process for the new user",
+                      "fullTitle": "User Operations Boarding Process Step 1 - Initial Questionnaire should complete step 1 of the boarding process for the new user",
+                      "timedOut": false,
+                      "duration": 243,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .post(`/boarding/1`)\n    .set('Authorization', `Bearer ${userToken}`)\n    .send({\n        Q1: 50,\n        Q2: 50,\n        Q3: 50,\n        Q4: 50\n    })\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.message.should.equal('Data received successfully');\n        done();\n    });",
+                      "err": {},
+                      "uuid": "5293579d-58ae-470d-b352-8d847772c3ae",
+                      "parentUUID": "7841c086-063c-46f8-a1c9-e92b8dc22a81",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "5293579d-58ae-470d-b352-8d847772c3ae"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 243,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "20939334-17a0-4b75-aaa4-b1036b2ac194",
+                  "title": "Step 2 - Additional Information",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should complete step 2 of the boarding process for the new user",
+                      "fullTitle": "User Operations Boarding Process Step 2 - Additional Information should complete step 2 of the boarding process for the new user",
+                      "timedOut": false,
+                      "duration": 234,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .post(`/boarding/2`)\n    .set('Authorization', `Bearer ${userToken}`)\n    .send({\n        Q5: 50,\n        Q6: 50,\n        Q7: 50,\n        Q8: 50\n    })\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.message.should.equal('Data received successfully');\n        done();\n    });",
+                      "err": {},
+                      "uuid": "2cce3364-a117-4735-8168-f5d56f46ca6e",
+                      "parentUUID": "20939334-17a0-4b75-aaa4-b1036b2ac194",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "2cce3364-a117-4735-8168-f5d56f46ca6e"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 234,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "834465b5-5144-4534-be0e-59ae532670a8",
+                  "title": "Step 3 - Final Questions",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should complete step 3 of the boarding process for the new user",
+                      "fullTitle": "User Operations Boarding Process Step 3 - Final Questions should complete step 3 of the boarding process for the new user",
+                      "timedOut": false,
+                      "duration": 279,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .post(`/boarding/3`)\n    .set('Authorization', `Bearer ${userToken}`)\n    .send({\n        Q9: 50,\n        Q10: 50,\n        Q11: 50,\n        Q12: 50\n    })\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.message.should.equal('Data received successfully');\n        done();\n    });",
+                      "err": {},
+                      "uuid": "5ffbda71-8e84-480c-bc61-4ea949133112",
+                      "parentUUID": "834465b5-5144-4534-be0e-59ae532670a8",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "5ffbda71-8e84-480c-bc61-4ea949133112"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 279,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "86c3fe0b-04de-4e20-a067-c7916adf1761",
+                  "title": "Step 4 - Ranking Priorities",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should complete step 4 of the boarding process for the new user",
+                      "fullTitle": "User Operations Boarding Process Step 4 - Ranking Priorities should complete step 4 of the boarding process for the new user",
+                      "timedOut": false,
+                      "duration": 133,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "const importanceRankings = {\n    Body: 'Most important',\n    Mind: 'Very important',\n    Sense: 'Important',\n    Relations: 'Somewhat important',\n    Journey: 'Not in the focus',\n    Love: 'Least important'\n};\n        \nconst numericRankings = Object.keys(importanceRankings).reduce((acc, key) => {\n    const importanceScale = {\n        'Most important': 6,\n        'Very important': 5,\n        'Important': 4,\n        'Somewhat important': 3,\n        'Not in the focus': 2,\n        'Least important': 1\n    };\n    acc[key] = importanceScale[importanceRankings[key]];\n    return acc;\n}, {});\n        \nchai.request(server)\n    .post(`/boarding/4`)\n    .set('Authorization', `Bearer ${userToken}`)\n    .send(numericRankings)\n    .end((err, res) => {\n        expect(err).to.be.null;\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.message.should.equal('Data received successfully');\n        done();\n    });",
+                      "err": {},
+                      "uuid": "caf94ee5-c92d-4afd-bd8b-ad7681213ac4",
+                      "parentUUID": "86c3fe0b-04de-4e20-a067-c7916adf1761",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "caf94ee5-c92d-4afd-bd8b-ad7681213ac4"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 133,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "8fd9ed9f-bed5-4454-a52c-092025f2fb07",
+              "title": "Action Listing and Update",
+              "fullFile": "/opt/learn/lifeapp/test/test.js",
+              "file": "/test/test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [],
+              "suites": [
+                {
+                  "uuid": "6763db97-b71d-46ba-aa7f-eb2bbab9edd2",
+                  "title": "Listing Actions",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should list all available actions",
+                      "fullTitle": "User Operations Action Listing and Update Listing Actions should list all available actions",
+                      "timedOut": false,
+                      "duration": 108,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "chai.request(server)\n    .get('/admin/action/list')\n    .set('Authorization', `Bearer ${userToken}`)\n    .end((err, res) => {\n        res.should.have.status(200);\n        res.body.should.be.an('array');\n        if (res.body.length > 0) {\n            actionId = res.body[0]._id; // Save an action ID for later use\n        }\n        done();\n    });",
+                      "err": {},
+                      "uuid": "2d26cdf1-2205-4cb7-b606-0a9ad24db299",
+                      "parentUUID": "6763db97-b71d-46ba-aa7f-eb2bbab9edd2",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "2d26cdf1-2205-4cb7-b606-0a9ad24db299"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 108,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                },
+                {
+                  "uuid": "87e8f049-32cc-4246-b6ec-385e4abfa3fe",
+                  "title": "Marking an Action as Done",
+                  "fullFile": "/opt/learn/lifeapp/test/test.js",
+                  "file": "/test/test.js",
+                  "beforeHooks": [],
+                  "afterHooks": [],
+                  "tests": [
+                    {
+                      "title": "should mark an action as done",
+                      "fullTitle": "User Operations Action Listing and Update Marking an Action as Done should mark an action as done",
+                      "timedOut": false,
+                      "duration": 120,
+                      "state": "passed",
+                      "speed": "slow",
+                      "pass": true,
+                      "fail": false,
+                      "pending": false,
+                      "context": null,
+                      "code": "if (!actionId) {\n    done(new Error('No actionId to test with'));\n    return;\n}\nchai.request(server)\n    .post('/mark-as-done')\n    .set('Authorization', `Bearer ${userToken}`)\n    .send({ actionId: actionId })\n    .end((err, res) => {\n        res.should.have.status(200);\n        res.body.should.be.an('object');\n        res.body.should.have.property('message').eql('Action marked as done');\n        done();\n    });",
+                      "err": {},
+                      "uuid": "6dfc3485-b318-4214-ac65-1d7f15ef16ef",
+                      "parentUUID": "87e8f049-32cc-4246-b6ec-385e4abfa3fe",
+                      "isHook": false,
+                      "skipped": false
+                    }
+                  ],
+                  "suites": [],
+                  "passes": [
+                    "6dfc3485-b318-4214-ac65-1d7f15ef16ef"
+                  ],
+                  "failures": [],
+                  "pending": [],
+                  "skipped": [],
+                  "duration": 120,
+                  "root": false,
+                  "rootEmpty": false,
+                  "_timeout": 2000
+                }
+              ],
+              "passes": [],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 0,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "report",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "test/report",
+        "reportFilename": "report"
+      },
+      "version": "6.2.0"
+    }
+  }
+}

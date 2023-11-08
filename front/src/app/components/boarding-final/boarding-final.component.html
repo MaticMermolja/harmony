@@ -1,0 +1,20 @@
+<h1>Onboarding</h1>
+<div class="stepper mb-4">
+    <div class="step">1</div>
+    <div class="step">2</div>
+    <div class="step">3</div>
+    <div class="step active">4</div>
+</div>
+<div class="alert alert-info" role="alert">
+    <p>Drag and drop items. The item that is above is the most important element for your well-being. The item at the bottom is least important.</p>
+</div>
+<form id="rankingForm" (ngSubmit)="submitRanking()">
+    <ul class="list-group" cdkDropList (cdkDropListDropped)="drop($event)">
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of items" cdkDrag>
+          {{ item.name }}
+          <span class="badge bg-primary">{{ item.importance }}</span>
+        </li>
+    </ul>
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="!isConnected()">Show me results</button>
+</form>

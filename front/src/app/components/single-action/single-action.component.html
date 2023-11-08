@@ -1,0 +1,9 @@
+<div class="action-card card text-white bg-dark mb-3" [ngStyle]="{'background-image': 'url(' + getImageUrl(action.pictureUrl) + ')'}">
+    <div class="card-body">
+      <div class="card-content">
+        <h5 class="card-title">{{ action.name }}</h5>
+        <p class="card-text">{{ action.desc }}</p>
+      </div>
+      <button class="btn btn-success action-done-button" (click)="markActionAsDone(action._id)" [disabled]="!isConnected()">Done</button>
+    </div>
+</div>
