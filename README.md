@@ -2,6 +2,8 @@
 
 ## Vision
 
+.
+
 ### Empowering Individuals, Crafting a Better World
 
 Our ambition is to embolden individuals in crafting an enhanced life for themselves and, in turn, forging a brighter world. We aspire to aid them in unlocking their creative potential, navigating toward their life objectives, and sculpting a world wherein. While our application aims to be a helpful companion on your journey toward self-improvement and realization, it's imperative to understand its capabilities and limitations:
