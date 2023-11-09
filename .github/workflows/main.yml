@@ -24,5 +24,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
       - name: Run Ansible playbook
-        run: |
-          docker run --rm -v $PWD:/ansible -v ~/.ssh/id_rsa:/root/.ssh/id_rsa -w /ansible williamyeh/ansible:alpine3 ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
+        run: docker run --rm -v $PWD:/ansible -v ${{ github.workspace }}/.ssh/id_rsa:/root/.ssh/id_rsa -w /ansible williamyeh/ansible:alpine3 ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
+        env:
+          ANSIBLE_HOST_KEY_CHECKING: false
+        
