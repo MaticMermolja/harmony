@@ -35,11 +35,19 @@ if (env.environment === "docker") {
 
 app.use(compression());
 
-app.use(cors({
+if(env.environment == "prod") {
+  app.use(cors({
+    origin: ['https://inharmonyapp.com'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true
+  }));
+} else {
+  app.use(cors({
     origin: ['http://localhost:4200', 'https://localhost:4200'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true // if your frontend sends credentials like cookies or auth headers
-}));
+    credentials: true
+  }));
+}
 
 app.disable('x-powered-by');
 app.use((request, response, next) => {
@@ -54,7 +62,7 @@ mongoose
     .then((result) => { 
         initInsertQuestions();
         initInsertActions();
-        if (env.HTTPS == "true") {
+        if (env.HTTPS == "true" && env.environment != "prod") {
             https
               .createServer(
                 {
