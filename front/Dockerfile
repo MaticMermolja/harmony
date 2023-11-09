@@ -13,8 +13,7 @@ FROM nginx:alpine
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /app/dist/lifeapp /usr/share/nginx/html
 
-# Expose port 80 to the Docker host, so we can access it 
-# from the outside.
+# Expose port 80 to the Docker host, so we can access it from the outside.
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
