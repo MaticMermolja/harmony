@@ -21,8 +21,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf/default.conf:/etc/nginx/conf.d/default.conf:ro  # Mount your custom Nginx configuration
+      - /etc/letsencrypt:/etc/letsencrypt:ro  # Mount your Let's Encrypt certificates
     networks:
       - lifeapp-network
+
 
   mongo:
     image: mongo
