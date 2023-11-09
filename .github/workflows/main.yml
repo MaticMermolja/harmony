@@ -34,7 +34,7 @@ jobs:
           npm install
           cd /opt/lifeapp/front
           npm install
-          npm run ng build -- --prod
+          npm run ng build -- --configuration production
           cd /opt/lifeapp
           # Pull the latest images
           docker-compose pull
