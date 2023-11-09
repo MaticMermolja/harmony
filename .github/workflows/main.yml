@@ -1,4 +1,4 @@
-name: Deploy with Ansible
+name: Deploy to DigitalOcean Droplet
 
 on:
   push:
@@ -6,23 +6,37 @@ on:
       - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Copy repository to the server
+      uses: appleboy/scp-action@main
+      with:
+        host: ${{ secrets.DROPLET_IP }}
+        username: ${{ secrets.DROPLET_USER }}
+        key: ${{ secrets.DROPLET_SSH_KEY }}
+        port: 22
+        source: "."
+        target: "/opt/lifeapp"
 
-      - name: Build custom Docker image
-        run: docker build -t custom-ansible-runner:latest ./deploy
-
-      - name: Set up SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      - name: Run Ansible playbook
-        run: docker run --rm -v $PWD:/ansible -v ~/.ssh/id_rsa:/root/.ssh/id_rsa -w /ansible custom-ansible-runner:latest ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
-        env:
-          ANSIBLE_HOST_KEY_CHECKING: false
+    - name: Install dependencies and redeploy
+      uses: appleboy/ssh-action@main
+      with:
+        host: ${{ secrets.DROPLET_IP }}
+        username: ${{ secrets.DROPLET_USER }}
+        key: ${{ secrets.DROPLET_SSH_KEY }}
+        port: 22
+        script: |
+          cd /opt/lifeapp/api
+          npm install
+          cd /opt/lifeapp/front
+          npm install
+          npm run ng build -- --prod
+          cd /opt/lifeapp
+          # Pull the latest images
+          docker-compose pull
+          # Rebuild and restart the services
+          docker-compose up -d --build
