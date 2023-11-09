@@ -30,4 +30,4 @@
         project_src: /opt/lifeapp
         build: yes
         recreate: smart
-        restarted: yes
+        restart: yes
