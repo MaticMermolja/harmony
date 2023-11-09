@@ -13,18 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Ansible container
-        run: |
-          docker pull williamyeh/ansible:alpine3
+      - name: Build custom Docker image
+        run: docker build -t custom-ansible-runner:latest ./deploy
 
-      - name: Copy private key into place and fix permissions
+      - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DROPLET_SSH_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
       - name: Run Ansible playbook
-        run: docker run --rm -v $PWD:/ansible -v ${{ github.workspace }}/.ssh/id_rsa:/root/.ssh/id_rsa -w /ansible williamyeh/ansible:alpine3 ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
+        run: docker run --rm -v $PWD:/ansible -v ~/.ssh/id_rsa:/root/.ssh/id_rsa -w /ansible custom-ansible-runner:latest ansible-playbook -i deploy/inventory.ini deploy/deploy.yml
         env:
           ANSIBLE_HOST_KEY_CHECKING: false
-        
