@@ -1,6 +1,4 @@
 const QuestionModel = require('../models/Question');
-const UserModel = require('../models/User');
-const UserRatingsModel = require('../models/UserRatings');
 
 exports.showQuestions = async (request, response) => {
     try {

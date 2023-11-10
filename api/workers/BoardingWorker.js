@@ -82,8 +82,8 @@ exports.getBoardingLevel = async (request, response) => {
  *                   type: string
  *                   description: Error message.
  *                   example: Question with shortcode Question KEY not found in the database
- *       500:
- *         description: Internal Server Error. An error occurred during the calculation.
+ *       403:
+ *         description: Access denied.
  *         content:
  *           application/json:
  *             schema:
@@ -92,7 +92,7 @@ exports.getBoardingLevel = async (request, response) => {
  *                 error:
  *                   type: string
  *                   description: Error message.
- *                   example: Internal server error
+ *                   example: Access denied.
  */
 exports.calculateBoarding = async (request, response) => {
     try {
@@ -154,14 +154,13 @@ exports.calculateBoarding = async (request, response) => {
                 ratingLove: formData.Love,
             };
             await UserRatingsModel.createUserRatings(newUserRatings);
-
             response.status(200).json({ message: 'Data received successfully', boardingLevel: user.boardingLevel });
         } else {
-            response.status(500).json({ error: 'Internal server error' });
+            response.status(403).json({ error: 'Access denied.' });
         }
     } catch (error) {
         console.error('Error:', error);
-        response.status(500).json({ error: 'Internal server error' });
+        response.status(500).json({ error: 'Access denied.' });
     }
 };
 
