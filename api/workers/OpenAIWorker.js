@@ -37,23 +37,23 @@ exports.createInspirationQuote = async (request, response) => {
     }
 };
 
-exports.fetchInspirationQuote = async (req, res) => {
+exports.fetchInspirationQuote = async (request, response) => {
     try {
         console.log('Searching for inspiration quote from OpenAI.')
         const inspirationQuoteResponse = await openai.chat.completions.create({
             model: "gpt-3.5-turbo",
             messages: [{
                 role: 'user',
-                content: `Show one sentence inspiring quote to the user.`
+                content: `Tell application user something that will make his day better and motivate him.`
             }],
-            max_tokens: 100
+            max_tokens: 250
         });
         const quote = inspirationQuoteResponse.choices[0].message.content;
         console.log('Inspiration quote set to:', quote)
-        res.json({ inspirationQuote: quote });
+        response.json({ inspirationQuote: quote });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ inspirationQuote: "This is a default inspiration quote, since no data could be retrieved from OpenAI." });
+        response.status(500).json({ inspirationQuote: "This is a default inspiration quote, since no data could be retrieved from OpenAI." });
     }
 }
 

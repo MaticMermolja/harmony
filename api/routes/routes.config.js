@@ -4,7 +4,6 @@ const initController = require('../workers/InitWorker.js');
 const boardingController = require('../workers/BoardingWorker.js');
 const adminController = require('../workers/AdminWorker.js');
 const openAIController = require('../workers/OpenAIWorker.js');
-const dbController = require('../workers/DBWorker.js');
 const verifyUserMiddleware = require('../middlewares/verifyUser');
 const config = require('../env.js');
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -25,68 +24,65 @@ router.post('/auth/register', userController.executeRegisterUser);
 
 // Boarding
 router.get('/utils/getBoardingLevel', [
-        verifyUserMiddleware.validateSession(1),
+        verifyUserMiddleware.validateSession(NORMAL_USER),
         boardingController.getBoardingLevel
       ]);
 
 router.post('/boarding/:step', [
-        verifyUserMiddleware.validateSession(1),
+        verifyUserMiddleware.validateSession(NORMAL_USER),
         boardingController.calculateBoarding
       ]);
 
 // Admin
 router.get('/admin/action/list', [
-        verifyUserMiddleware.validateSession(1),
+        verifyUserMiddleware.validateSession(NORMAL_USER),
         adminController.listAllActions
       ]);
 
 router.put('/admin/action/create', [
-        verifyUserMiddleware.validateSession(2),
+        verifyUserMiddleware.validateSession(ADMIN),
         adminController.putCreateNewAction
       ]);      
 
 router.patch('/admin/action/patch/:id', [
-        verifyUserMiddleware.validateSession(2),
+        verifyUserMiddleware.validateSession(ADMIN),
         adminController.patchUpdateAction
       ]);      
       
 router.get('/user/:id', [
-        verifyUserMiddleware.validateSession(2),
+        verifyUserMiddleware.validateSession(ADMIN),
         userController.findById
       ]);
 
 router.get('/users', [
-      verifyUserMiddleware.validateSession(1),
+      verifyUserMiddleware.validateSession(ADMIN),
       userController.listAllUsers
-    ]);
-
-router.get('/user-inspiration-quote', [
-      verifyUserMiddleware.validateSession(1),
-      openAIController.fetchInspirationQuote
-    ]);    
+    ]);  
 
 router.delete('/user/delete/:id', [
-      verifyUserMiddleware.validateSession(2),
+      verifyUserMiddleware.validateSession(ADMIN),
       userController.deleteById
     ]);
 
-// Utils
-router.get('/questions/get', initController.showQuestions);
-router.get('/openai/get/quote', openAIController.createInspirationQuote);
 router.get('/ratings/get/all', [
-          verifyUserMiddleware.validateSession(2),
+          verifyUserMiddleware.validateSession(ADMIN),
           boardingController.listAllUserRatings
         ]);
 
-router.post('/mark-as-done', [
-  verifyUserMiddleware.validateSession(1),
-  userController.markActionAsDone
-]);            
+router.get('/user-inspiration-quote', [
+  verifyUserMiddleware.validateSession(NORMAL_USER),
+  openAIController.fetchInspirationQuote
+]);  
 
-// DB
-router.post('/db/delete', dbController.deleteAllDbData);
-router.post('/db/init', dbController.initAppData);
-router.get('/db', dbController.showDBInit);
+router.post('/mark-as-done', [
+  verifyUserMiddleware.validateSession(NORMAL_USER),
+  userController.markActionAsDone
+]);
+
+router.get('/user-stats', [
+  verifyUserMiddleware.validateSession(NORMAL_USER),
+  userController.showUserView
+]);
 
 router.get('/docs/api', (request, response) => {
   response.redirect('/docs');
@@ -114,7 +110,6 @@ const swaggerDocument = swaggerJsDoc({
    },  
    apis: ["./models/*.js", "./controllers/*.js", "./middlewares/*.js"],
  });
- 
 
 // Swagger
 router.get("/swagger.json", (request, response) =>
@@ -132,10 +127,5 @@ router.use(
     customCss: ".swagger-ui .topbar { display: none }",
   })
 );
-
-router.get('/user-stats', [
-  verifyUserMiddleware.validateSession(1),
-  userController.showUserView
-]);
 
 module.exports = router;
