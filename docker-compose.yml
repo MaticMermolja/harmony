@@ -28,16 +28,22 @@ services:
     networks:
       - lifeapp-network
 
-
   mongo:
     image: mongo
     container_name: lifeapp-mongo
-    ports:
-      - "27017-27019:27017-27019"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongoadmin
+      - MONGO_INITDB_ROOT_PASSWORD=Kljukec123
+    volumes:
+      - mongo-data:/data/db
     networks:
-      - lifeapp-network      
+      - lifeapp-network
 
 networks:
   lifeapp-network:
     name: lifeapp-network
     driver: bridge
+
+volumes:
+  mongo-data:
+    name: lifeapp-mongo-data
