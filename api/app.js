@@ -13,24 +13,7 @@ const https = require("https")
 
 const app = express();
 
-let dbURI;
-let originCors;
-
-if (env.environment === "docker") {
-    dbURI = 'mongodb://mongo/happymedb';
-    if (env.HTTPS === "true") {
-        originCors = 'https://localhost'
-    } else {
-        originCors = 'http://localhost'
-    }
-} else {
-    dbURI = env.dbURI;
-    if (env.HTTPS === "true") {
-        originCors = 'https://localhost:4200'
-    } else {
-        originCors = 'http://localhost:4200'
-    }
-}
+let dbURI = env.dbURI;
 
 app.use(compression());
 
@@ -56,6 +39,7 @@ app.use((request, response, next) => {
     next();
 });
 
+console.log(dbURI);
 mongoose
     .connect(dbURI)
     .then((result) => { 
