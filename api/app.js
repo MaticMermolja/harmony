@@ -5,11 +5,14 @@ const mongoose = require('mongoose');
 const routes = require('./routes/routes.config')
 const { initInsertQuestions } = require('./models/Question')
 const { initInsertActions } = require('./models/Action')
+const rateLimitMiddleware = require("./middlewares/rateLimit");
 const cors = require('cors')
 const env = require('./env.js')
 const compression = require('compression')
 const fs = require("fs")
 const https = require("https")
+const helmet = require('helmet');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -31,13 +34,9 @@ if(env.environment == "prod") {
   }));
 }
 
-app.disable('x-powered-by');
-app.use((request, response, next) => {
-    response.header('X-Frame-Options', 'DENY');
-    response.setHeader('X-XSS-Protection', '1; mode=block');
-    response.setHeader('X-Content-Type-Options', 'nosniff');
-    next();
-});
+app.use(helmet());
+app.use(rateLimitMiddleware);
+app.use(bodyParser.json({ limit: '1mb' }));
 
 console.log(dbURI);
 mongoose
