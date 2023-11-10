@@ -40,6 +40,7 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
+    console.log(`${this.baseUrl}/auth/login`);
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, { email, password }).pipe(
       map((response) => {
         localStorage.setItem(this.tokenKey, response.accessToken);
