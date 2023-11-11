@@ -3,6 +3,9 @@
         <h1 class="mb-0">Your elements</h1>
         <p *ngIf="inspirationQuote; else loadingQuote">{{ inspirationQuote }}</p>
         <ng-template #loadingQuote>Loading inspirational quote...</ng-template>
+        <div *ngIf="inspirationImage" class="mt-3">
+            <img [src]="inspirationImage" alt="Inspirational Image" class="img-fluid">
+        </div>
     </div>
     <div class="card-body">
         <p class="card-text"><strong>Body:</strong> <span id="bodyStat">{{ userStats?.body }}</span></p>

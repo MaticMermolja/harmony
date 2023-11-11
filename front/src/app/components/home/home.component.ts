@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
   actions: Action[] = [];
   filteredActions: Action[] = [];
   inspirationQuote?: string;
+  inspirationImage: string | null = null;
   private baseUrl = environment.apiUrl; // Ensure environment is pointing to the right API
   currentPage: number = 0;
   itemsPerPage: number = 5;
@@ -100,10 +101,23 @@ export class HomeComponent implements OnInit {
     this.http.get<{ inspirationQuote: string; }>(`${this.baseUrl}/user-inspiration-quote`).subscribe({
       next: (data) => {
         this.inspirationQuote = data.inspirationQuote;
+        // this.fetchInspirationalImage(data.inspirationQuote);
       },
       error: (error) => {
         console.error('Error fetching inspiration quote:', error);
         this.inspirationQuote = "Keep pushing forward!";
+      }
+    });
+  }
+
+  fetchInspirationalImage(quote: string): void {
+    this.http.post<{ inspirationImage: string; }>(`${this.baseUrl}/user-inspiration-image`, { content: quote }).subscribe({
+      next: (data) => {
+        this.inspirationImage = data.inspirationImage;
+      },
+      error: (error) => {
+        console.error('Error fetching inspiration image:', error);
+        this.inspirationImage = "default-image-url";
       }
     });
   }

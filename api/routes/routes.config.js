@@ -74,6 +74,11 @@ router.get('/user-inspiration-quote', [
   openAIController.fetchInspirationQuote
 ]);  
 
+router.post('/user-inspiration-image', [
+  verifyUserMiddleware.validateSession(NORMAL_USER),
+  openAIController.fetchInspirationalImage
+]);  
+
 router.post('/mark-as-done', [
   verifyUserMiddleware.validateSession(NORMAL_USER),
   userController.markActionAsDone
@@ -99,12 +104,8 @@ const swaggerDocument = swaggerJsDoc({
      },
      servers: [
        {
-         url: "https://localhost:3000/api",
-         description: "Secure development server for testing",
-       },
-       {
-         url: "http://localhost:3000/",
-         description: "Development server for testing",
+         url: "https://inharmonyapp.com/api",
+         description: "Production swagger",
        }
      ],
    },  
@@ -113,10 +114,6 @@ const swaggerDocument = swaggerJsDoc({
 
 // Swagger
 router.get("/swagger.json", (request, response) =>
-   response.status(200).json(swaggerDocument)
-);
-
-router.get("/api/swagger.json", (request, response) =>
    response.status(200).json(swaggerDocument)
 );
 
