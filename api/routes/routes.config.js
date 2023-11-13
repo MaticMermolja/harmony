@@ -106,10 +106,14 @@ const swaggerDocument = swaggerJsDoc({
        {
          url: "https://inharmonyapp.com/api",
          description: "Production swagger",
-       }
+       },
+       {
+        url: "https://localhost:3000/api",
+        description: "Development swagger",
+      }
      ],
    },  
-   apis: ["./models/*.js", "./controllers/*.js", "./middlewares/*.js"],
+   apis: ["./models/*.js", "./workers/*.js", "./middlewares/*.js"],
  });
 
 // Swagger
