@@ -1,0 +1,66 @@
+ID,Req. Timestamp,Resp. Timestamp,Method,URL,Code,Reason,RTT,Size Resp. Header,Size Resp. Body
+60,Mon Nov 13 10:38:54 CET 2023,Mon Nov 13 10:38:54 CET 2023,GET,https://localhost:3000/5862439262527666409,404,Not Found,7,1152,12
+62,Mon Nov 13 10:38:54 CET 2023,Mon Nov 13 10:38:54 CET 2023,GET,https://localhost:3000/api/7595885610381054844,404,Not Found,2,1148,12
+64,Mon Nov 13 10:38:54 CET 2023,Mon Nov 13 10:38:54 CET 2023,GET,https://localhost:3000/api/admin/3890027460672599189,404,Not Found,1,1152,12
+66,Mon Nov 13 10:38:54 CET 2023,Mon Nov 13 10:38:55 CET 2023,GET,https://localhost:3000/api/admin/action/634130757869674064,404,Not Found,1017,1150,12
+68,Mon Nov 13 10:38:55 CET 2023,Mon Nov 13 10:38:55 CET 2023,GET,https://localhost:3000/api/auth/6466451236286055558,404,Not Found,1,1156,12
+70,Mon Nov 13 10:38:55 CET 2023,Mon Nov 13 10:38:55 CET 2023,GET,https://localhost:3000/api/boarding/4317938633825432666,404,Not Found,1,1154,12
+72,Mon Nov 13 10:38:55 CET 2023,Mon Nov 13 10:38:56 CET 2023,GET,https://localhost:3000/api/ratings/5350453861617517439,404,Not Found,1010,1152,12
+74,Mon Nov 13 10:38:56 CET 2023,Mon Nov 13 10:38:56 CET 2023,GET,https://localhost:3000/api/ratings/get/4663018009077666869,404,Not Found,2,1148,12
+76,Mon Nov 13 10:38:56 CET 2023,Mon Nov 13 10:38:56 CET 2023,GET,https://localhost:3000/api/utils/2970699124031661857,404,Not Found,2,1148,12
+78,Mon Nov 13 10:38:56 CET 2023,Mon Nov 13 10:38:57 CET 2023,GET,https://localhost:3000,404,Not Found,1017,1150,12
+79,Mon Nov 13 10:38:57 CET 2023,Mon Nov 13 10:38:57 CET 2023,GET,https://localhost:3000/api/admin,404,Not Found,1,1154,12
+80,Mon Nov 13 10:38:57 CET 2023,Mon Nov 13 10:38:57 CET 2023,GET,https://localhost:3000/api/admin/action,404,Not Found,2,1150,12
+81,Mon Nov 13 10:38:57 CET 2023,Mon Nov 13 10:38:58 CET 2023,GET,https://localhost:3000/api/auth,404,Not Found,1008,1150,12
+82,Mon Nov 13 10:38:59 CET 2023,Mon Nov 13 10:38:59 CET 2023,GET,https://localhost:3000/api/boarding,404,Not Found,2,1152,12
+83,Mon Nov 13 10:38:59 CET 2023,Mon Nov 13 10:38:59 CET 2023,GET,https://localhost:3000/api/ratings,404,Not Found,1,1148,12
+84,Mon Nov 13 10:38:59 CET 2023,Mon Nov 13 10:39:00 CET 2023,GET,https://localhost:3000/api/ratings/get,404,Not Found,1006,1148,12
+85,Mon Nov 13 10:39:00 CET 2023,Mon Nov 13 10:39:00 CET 2023,GET,https://localhost:3000/api/utils,404,Not Found,2,1154,12
+86,Mon Nov 13 10:39:00 CET 2023,Mon Nov 13 10:39:00 CET 2023,GET,https://localhost:3000,404,Not Found,2,1150,12
+87,Mon Nov 13 10:39:00 CET 2023,Mon Nov 13 10:39:01 CET 2023,GET,https://localhost:3000/api/admin,404,Not Found,1005,1150,12
+88,Mon Nov 13 10:39:01 CET 2023,Mon Nov 13 10:39:01 CET 2023,GET,https://localhost:3000/api/admin/action,404,Not Found,2,1150,12
+89,Mon Nov 13 10:39:01 CET 2023,Mon Nov 13 10:39:01 CET 2023,GET,https://localhost:3000/api/auth,404,Not Found,1,1160,12
+90,Mon Nov 13 10:39:01 CET 2023,Mon Nov 13 10:39:02 CET 2023,GET,https://localhost:3000/api/boarding,404,Not Found,1004,1154,12
+91,Mon Nov 13 10:39:02 CET 2023,Mon Nov 13 10:39:02 CET 2023,GET,https://localhost:3000/api/ratings,404,Not Found,1,1148,12
+92,Mon Nov 13 10:39:02 CET 2023,Mon Nov 13 10:39:02 CET 2023,GET,https://localhost:3000/api/ratings/get,404,Not Found,1,1150,12
+93,Mon Nov 13 10:39:02 CET 2023,Mon Nov 13 10:39:03 CET 2023,GET,https://localhost:3000/api/utils,404,Not Found,1014,1148,12
+94,Mon Nov 13 10:39:03 CET 2023,Mon Nov 13 10:39:03 CET 2023,GET,https://localhost:3000,404,Not Found,1,1152,12
+95,Mon Nov 13 10:39:03 CET 2023,Mon Nov 13 10:39:03 CET 2023,GET,https://localhost:3000,404,Not Found,1,1148,12
+96,Mon Nov 13 10:39:03 CET 2023,Mon Nov 13 10:39:04 CET 2023,GET,https://localhost:3000,404,Not Found,1007,1150,12
+97,Mon Nov 13 10:39:04 CET 2023,Mon Nov 13 10:39:04 CET 2023,GET,https://localhost:3000/api/admin,404,Not Found,1,1154,12
+98,Mon Nov 13 10:39:04 CET 2023,Mon Nov 13 10:39:04 CET 2023,GET,https://localhost:3000/api/admin/action,404,Not Found,2,1150,12
+99,Mon Nov 13 10:39:04 CET 2023,Mon Nov 13 10:39:05 CET 2023,GET,https://localhost:3000/api/auth,404,Not Found,1006,1150,12
+100,Mon Nov 13 10:39:05 CET 2023,Mon Nov 13 10:39:05 CET 2023,GET,https://localhost:3000/api/boarding,404,Not Found,2,1150,12
+101,Mon Nov 13 10:39:03 CET 2023,Mon Nov 13 10:39:05 CET 2023,GET,https://localhost:3000/WEB-INF/web.xml,404,Not Found,2026,1150,12
+102,Mon Nov 13 10:39:05 CET 2023,Mon Nov 13 10:39:06 CET 2023,GET,https://localhost:3000/api/ratings,404,Not Found,1011,1152,12
+103,Mon Nov 13 10:39:05 CET 2023,Mon Nov 13 10:39:06 CET 2023,GET,https://localhost:3000/WEB-INF/applicationContext.xml,404,Not Found,1012,1148,12
+104,Mon Nov 13 10:39:06 CET 2023,Mon Nov 13 10:39:06 CET 2023,GET,https://localhost:3000/api/ratings/get,404,Not Found,1,1150,12
+105,Mon Nov 13 10:39:06 CET 2023,Mon Nov 13 10:39:07 CET 2023,GET,https://localhost:3000/api/swagger.json?-s,200,OK,1012,1155,4560
+106,Mon Nov 13 10:39:06 CET 2023,Mon Nov 13 10:39:07 CET 2023,GET,https://localhost:3000/api/utils,404,Not Found,1013,1152,12
+107,Mon Nov 13 10:39:07 CET 2023,Mon Nov 13 10:39:07 CET 2023,GET,https://localhost:3000,404,Not Found,1,1154,12
+108,Mon Nov 13 10:39:07 CET 2023,Mon Nov 13 10:39:08 CET 2023,POST,https://localhost:3000/api?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1024,1148,12
+109,Mon Nov 13 10:39:07 CET 2023,Mon Nov 13 10:39:08 CET 2023,POST,https://localhost:3000/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1025,1152,12
+110,Mon Nov 13 10:39:07 CET 2023,Mon Nov 13 10:39:08 CET 2023,GET,https://localhost:3000/api/admin,404,Not Found,1025,1148,12
+111,Mon Nov 13 10:39:08 CET 2023,Mon Nov 13 10:39:09 CET 2023,POST,https://localhost:3000/api/admin?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1008,1152,12
+112,Mon Nov 13 10:39:08 CET 2023,Mon Nov 13 10:39:09 CET 2023,POST,https://localhost:3000/api?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1010,1150,12
+113,Mon Nov 13 10:39:07 CET 2023,Mon Nov 13 10:39:09 CET 2023,POST,https://localhost:3000/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,2035,1148,12
+114,Mon Nov 13 10:39:09 CET 2023,Mon Nov 13 10:39:10 CET 2023,POST,https://localhost:3000/api/admin?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1013,1150,12
+115,Mon Nov 13 10:39:08 CET 2023,Mon Nov 13 10:39:10 CET 2023,POST,https://localhost:3000/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,2023,1148,12
+116,Mon Nov 13 10:39:08 CET 2023,Mon Nov 13 10:39:10 CET 2023,GET,https://localhost:3000/api/admin/action,404,Not Found,2023,1150,12
+117,Mon Nov 13 10:39:10 CET 2023,Mon Nov 13 10:39:11 CET 2023,POST,https://localhost:3000/api/admin/action?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1013,1150,12
+118,Mon Nov 13 10:39:10 CET 2023,Mon Nov 13 10:39:11 CET 2023,POST,https://localhost:3000/api/admin/action/create?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1013,1150,12
+119,Mon Nov 13 10:39:10 CET 2023,Mon Nov 13 10:39:11 CET 2023,GET,https://localhost:3000/api/auth,404,Not Found,1013,1148,12
+120,Mon Nov 13 10:39:09 CET 2023,Mon Nov 13 10:39:12 CET 2023,POST,https://localhost:3000/?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,429,Too Many Requests,3040,1049,51
+121,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:12 CET 2023,POST,https://localhost:3000/api/admin/action?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1013,1152,12
+122,Mon Nov 13 10:39:10 CET 2023,Mon Nov 13 10:39:12 CET 2023,POST,https://localhost:3000/api/admin/action/list?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,2025,1148,12
+123,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:12 CET 2023,GET,https://localhost:3000/api/boarding,404,Not Found,1014,1152,12
+124,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:13 CET 2023,POST,https://localhost:3000/api/auth/login?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,400,Bad Request,2029,1164,55
+125,Mon Nov 13 10:39:12 CET 2023,Mon Nov 13 10:39:13 CET 2023,POST,https://localhost:3000/api/boarding/1?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,401,Unauthorized,1013,1158,34
+126,Mon Nov 13 10:39:12 CET 2023,Mon Nov 13 10:39:13 CET 2023,POST,https://localhost:3000/api/admin/action/list?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1018,1156,12
+127,Mon Nov 13 10:39:12 CET 2023,Mon Nov 13 10:39:14 CET 2023,POST,https://localhost:3000/api/mark-as-done?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,401,Unauthorized,2028,1152,34
+128,Mon Nov 13 10:39:13 CET 2023,Mon Nov 13 10:39:14 CET 2023,POST,https://localhost:3000/api/auth/login?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,400,Bad Request,1015,1160,55
+129,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:14 CET 2023,POST,https://localhost:3000/api/admin/action/create?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,429,Too Many Requests,3046,1049,51
+130,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:14 CET 2023,POST,https://localhost:3000/api/auth/register?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,429,Too Many Requests,3045,1049,51
+131,Mon Nov 13 10:39:11 CET 2023,Mon Nov 13 10:39:14 CET 2023,POST,https://localhost:3000/api/auth?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,429,Too Many Requests,3045,1049,51
+132,Mon Nov 13 10:39:12 CET 2023,Mon Nov 13 10:39:14 CET 2023,GET,https://localhost:3000/api/ratings,404,Not Found,2031,1150,12
+133,Mon Nov 13 10:39:14 CET 2023,Mon Nov 13 10:39:15 CET 2023,POST,https://localhost:3000/api/ratings?-d+allow_url_include%3d1+-d+auto_prepend_file%3dphp://input,404,Not Found,1005,1152,12
