@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const Utils = require('../utils/passwordUtils.js');
 const Schema = mongoose.Schema;
 
 /**
@@ -186,6 +187,35 @@ exports.findByIdAndUpdate = async (id, updateData) => {
     } catch (err) {
         console.error(err);
     }
+};
+
+exports.initInsertAdmin = async () => {
+    try {
+        // Check if a question with the same shortcode already exists
+        const existingAdmin = await UserModel.findOne({ email: 'admin@admin.com' });
+
+        if (!existingAdmin ) {
+            const hashedPassword = Utils.hashPassword('admin');
+            // Create a new user object by spreading properties from the request body
+            // and modifying the password and permissionLevel        
+            const userData = {
+                firstName: 'Admin',
+                lastName: 'Admin',
+                email: 'admin@admin.com',
+                password: hashedPassword,
+                permissionLevel: 2
+            };
+    
+            const user = new UserModel(userData);
+            await user.save();
+            console.log('Admin user created.');
+        } else {
+            console.log('Admin user already added in DB.');
+        }
+    } catch (error) {
+        console.error('Error adding admin user to the database:', error);
+    }
+
 };
 
 exports.deleteAll = () => {

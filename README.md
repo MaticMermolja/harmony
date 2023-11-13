@@ -16,15 +16,10 @@ In utilizing our application, remember that the power to change, adapt, and grow
 
 ## Production accessable
 
-https://life-app.onrender.com/
+https://inharmonyapp.com/
 
-API swagger docs:
-https://life-app.onrender.com/docs
-
-Admin: [FIRST INIT DB]
-https://life-app.onrender.com/db
-  - **Email:** admin@admin.com
-  - **Password:** admin
+API swagger docs [Only accessable locally]
+http://localhost:3000/api/docs
 
 Presentation link: https://docs.google.com/presentation/d/1hnGr0d16PvW40GCBoDu_ywF8zsT1OOQitSrz59iOzGE/
 
@@ -33,8 +28,7 @@ Presentation link: https://docs.google.com/presentation/d/1hnGr0d16PvW40GCBoDu_y
 ### Prerequisites
 - Ensure you have Docker and Docker Compose installed.
 
-### Sample Configuration (`env.js`):
-2. Copy and paste following data to env.js to run application locally.
+### Sample Configuration of NodeJS API (`env.js`):
 ```javascript
 module.exports = {
     "port": 3000,
@@ -52,16 +46,17 @@ module.exports = {
 ```
 
 ### Configuration DOCKER & HTTP
-1. Create the `/api/env.js` file to set the `environment` key to `docker`:
+1. Create the `/api/env.js` file.
+2. Copy sample configuration file.
+3. Set the `environment` key to `docker` and `HTTPS` to `false`:
     ```javascript
     "environment": "docker",
     "HTTPS":"false"
     ```
+4. Run `docker-compose up`
+5. Navigate to `http://localhost:4200/`
 
-2. Run `docker-compose up`
-3. Navigate to `http://localhost:4200/`
-
-### Configuration DEV & HTTPS
+### Optional: Configuration DEV & HTTPS (Only used for OWASP ZAP, not tested fully)
 1. Create the `/api/env.js` file to set the `environment` key to `docker`:
     ```javascript
     "environment": "dev",
@@ -79,31 +74,11 @@ Don't forget to update mongodb connection string.
 5. `npm start`
 6. `cd ../front`
 7. `ng serve --configuration https`
+8. Navigate to `https://localhost/`
 
 ## Initialization of Database
 
-When initializing the database through `/db`, two significant operations are performed:
-
-- **Questions Addition:** 
-  - Questions are essential for the user onboarding process, during which the initial state of user elements is calculated.
-  - Upon completing the onboarding process, users are redirected to the index page where actions can be performed.
-
-- **Actions Addition:** 
-  - Actions alter the user’s current element statistics. 
-  - Actions data does not represent any real-world meaningful data and is structured to showcase the demo functionality of actions within the application.
-  - All test data for actions was generated with the assistance of AI.
-
-- **Creation of ADMIN Default User:** 
-  - Admin credentials upon database initialization:
-    - **Email:** admin@admin.com
-    - **Password:** admin
-
-### Data Deletion
-
-Upon executing `/db/delete`, the following operations will be performed:
-
-- All data within the database, stored through models including `QuestionModel`, `UserModel`, `ActionModel`, and `UserRatingsModel` will be deleted.
-- A prompt should always be presented to the user to confirm the action as this is a non-reversible operation.
+DB initialization is performed on API start-up. Access point `/db` was deleted, since it is no longer needed.
 
 ## UI Plan
 ![LifeApp UI](./other/LifeApp_UI.drawio.png)
@@ -114,32 +89,23 @@ Upon executing `/db/delete`, the following operations will be performed:
 
 The backend of the application is thoroughly tested using Mocha and Chai. To execute these tests:
 
-1. Navigate to the `/api/tests` directory in your terminal.
+1. Navigate to the `/api` directory in your terminal.
 2. Run the command `npm test`.
 
-The testing process includes several steps to ensure the robustness of the backend functionalities:
+**Important!** Before testing, please check rateLimit that is set in rateLimit.js. By default it is set to 2. For testing to complete, set it to higher value (20 recommended).
+    ```javascript
+    const rateLimitMiddleware = setRateLimit({
+      windowMs: 1000,
+      max: 2,
+      message: "You have exceeded your 2 requests per second limit.",
+      headers: true,
+    });
+    ```
+### Report
 
-### Registration
+Report is accessable in `/api/test/report` folder.
 
-A new user with a randomly generated email and a default password (`admin`) is created to simulate the registration process.
-
-### Authentication
-
-The system tests the login functionality by authenticating the newly registered user, securing an access token for subsequent actions.
-
-### User Journey
-
-With the acquired token, the test simulates a user completing the entire onboarding process with default values.
-
-### Actions Testing
-
-Once onboarding is complete, the system enumerates all actions the user can perform, followed by marking a single action as done to validate this functionality.
-
-### Clean-Up
-
-In the end, the test ensures that the generated user is deleted. This action is performed by an admin user, which is pre-created upon the initial run of the application.
-
-## Test Details
+### Test Details
 
 Here is a high-level overview of the `test.js` file:
 
@@ -198,47 +164,6 @@ const inspirationQuoteResponse = await openai.chat.completions.create({
 ```
 
 **Note:** While OpenAI API is a paid service, the inclusion of it in this project is for testing purposes due to its low load. Future expansions may leverage OpenAI for suggesting user actions after thorough data calibration.
-
-## Additional Functionalities
-
-### Drag and Drop
-
-Implemented utilizing `Sortable/1.14.0/Sortable.min.js`, the drag and drop functionality allows users to intuitively sort their most important elements, enhancing user experience and interactivity.
-
-## API Endpoints
-
-1. **Auth Endpoints:**
-   - Login
-     - Show: `GET /auth/login`
-     - Execute: `POST /auth/login`
-   - Register
-     - Show: `GET /auth/register`
-     - Execute: `POST /auth/register`
-
-2. **Boarding Endpoints:**
-   - Show Boarding: `GET /boarding`
-   - Calculate Boarding: `POST /boarding/:step`
-   
-3. **Admin Endpoints:**
-   - List All Actions: `GET /admin/action/list`
-   - Create New Action
-     - Get: `GET /admin/action/create`
-     - Put: `PUT /admin/action/create`
-   - Update Action: `PATCH /admin/action/patch/:id`
-   - Get User By ID: `GET /user/:id`
-   - List All Users: `GET /users`
-   - Delete User By ID: `DELETE /user/delete/:id`
-
-4. **Utility Endpoints:**
-   - Get Questions: `GET /questions/get`
-   - Get OpenAI Quote: `GET /openai/get/quote`
-   - List All User Ratings: `GET /ratings/get/all`
-   - Mark Action as Done: `POST /mark-as-done`
-   
-5. **DB Endpoints:**
-   - Show DB Init: `GET /db`
-   - Delete All DB Data: `POST /db/delete`
-   - Init App Data: `POST /db/init`
 
 ## Database Schema Overview
 

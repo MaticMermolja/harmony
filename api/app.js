@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes/routes.config')
 const { initInsertQuestions } = require('./models/Question')
 const { initInsertActions } = require('./models/Action')
+const { initInsertAdmin } = require('./models/User')
 const rateLimitMiddleware = require("./middlewares/rateLimit");
 const cors = require('cors')
 const env = require('./env.js')
@@ -35,6 +36,10 @@ if(env.environment == "prod") {
 }
 
 app.use(helmet());
+app.use(helmet.frameguard({ action: 'deny' }));
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+
 app.use(rateLimitMiddleware);
 app.use(bodyParser.json({ limit: '1mb' }));
 
@@ -44,6 +49,7 @@ mongoose
     .then((result) => { 
         initInsertQuestions();
         initInsertActions();
+        initInsertAdmin();
         if (env.HTTPS == "true" && env.environment != "prod") {
             https
               .createServer(
@@ -98,7 +104,7 @@ app.use(morgan('dev'));
 app.use('/api', routes);
 
 app.use((request, response) => {
-    response.status(404).render('404');
+    response.status(404).render('index');
 });
 
 // Export the server object

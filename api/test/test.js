@@ -44,7 +44,7 @@ describe('User Operations', () => {
         }
     
         chai.request(server)
-            .post('/auth/login')
+            .post('/api/auth/login')
             .send({
                 email: 'admin@admin.com',
                 password: 'admin'
@@ -55,7 +55,7 @@ describe('User Operations', () => {
                 const adminToken = res.body.accessToken;
     
                 chai.request(server)
-                    .delete(`/user/delete/${newUserCredentials.userId}`)
+                    .delete(`/api/user/delete/${newUserCredentials.userId}`)
                     .set('Authorization', `Bearer ${adminToken}`)
                     .end((err, res) => {
                         expect(err).to.be.null;
@@ -69,7 +69,7 @@ describe('User Operations', () => {
         context('Registration', () => {
             it('should register a new user', (done) => {
                 chai.request(server)
-                    .post('/auth/register')
+                    .post('/api/auth/register')
                     .send(newUserCredentials)
                     .end((err, res) => {
                         expect(err).to.be.null;
@@ -89,7 +89,7 @@ describe('User Operations', () => {
         context('Login', () => {
             it('should login the newly registered user', (done) => {
                 chai.request(server)
-                    .post('/auth/login')
+                    .post('/api/auth/login')
                     .send({
                         email: newUserCredentials.email,
                         password: newUserCredentials.password
@@ -109,7 +109,7 @@ describe('User Operations', () => {
         context('Step 1 - Initial Questionnaire', () => {
             it('should complete step 1 of the boarding process for the new user', (done) => {
                 chai.request(server)
-                    .post(`/boarding/1`)
+                    .post(`/api/boarding/1`)
                     .set('Authorization', `Bearer ${userToken}`)
                     .send({
                         Q1: 50,
@@ -124,13 +124,13 @@ describe('User Operations', () => {
                         res.body.message.should.equal('Data received successfully');
                         done();
                     });
-            });
+            }).timeout(10000);
         });
     
         context('Step 2 - Additional Information', () => {
             it('should complete step 2 of the boarding process for the new user', (done) => {
                 chai.request(server)
-                    .post(`/boarding/2`)
+                    .post(`/api/boarding/2`)
                     .set('Authorization', `Bearer ${userToken}`)
                     .send({
                         Q5: 50,
@@ -145,13 +145,13 @@ describe('User Operations', () => {
                         res.body.message.should.equal('Data received successfully');
                         done();
                     });
-            });
+            }).timeout(10000);
         });
     
         context('Step 3 - Final Questions', () => {
             it('should complete step 3 of the boarding process for the new user', (done) => {
                 chai.request(server)
-                    .post(`/boarding/3`)
+                    .post(`/api/boarding/3`)
                     .set('Authorization', `Bearer ${userToken}`)
                     .send({
                         Q9: 50,
@@ -166,7 +166,7 @@ describe('User Operations', () => {
                         res.body.message.should.equal('Data received successfully');
                         done();
                     });
-            });
+            }).timeout(10000);
         });
     
         context('Step 4 - Ranking Priorities', () => {
@@ -194,7 +194,7 @@ describe('User Operations', () => {
                 }, {});
         
                 chai.request(server)
-                    .post(`/boarding/4`)
+                    .post(`/api/boarding/4`)
                     .set('Authorization', `Bearer ${userToken}`)
                     .send(numericRankings)
                     .end((err, res) => {
@@ -205,14 +205,14 @@ describe('User Operations', () => {
                         done();
                     });
             });
-        });
+        }).timeout(10000);
     });    
 
     describe('Action Listing and Update', () => {
         context('Listing Actions', () => {
             it('should list all available actions', (done) => {
                 chai.request(server)
-                    .get('/admin/action/list')
+                    .get('/api/admin/action/list')
                     .set('Authorization', `Bearer ${userToken}`)
                     .end((err, res) => {
                         res.should.have.status(200);
@@ -233,7 +233,7 @@ describe('User Operations', () => {
                 }
 
                 chai.request(server)
-                    .post('/mark-as-done')
+                    .post('/api/mark-as-done')
                     .set('Authorization', `Bearer ${userToken}`)
                     .send({ actionId: actionId })
                     .end((err, res) => {
