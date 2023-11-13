@@ -33,12 +33,6 @@ Presentation link: https://docs.google.com/presentation/d/1hnGr0d16PvW40GCBoDu_y
 ### Prerequisites
 - Ensure you have Docker and Docker Compose installed.
 
-### Configuration
-1. Create the `/api/env.js` file to set the `environment` key to `docker`:
-    ```javascript
-    "environment": "docker",
-    ```
-
 ### Sample Configuration (`env.js`):
 2. Copy and paste following data to env.js to run application locally.
 ```javascript
@@ -46,19 +40,45 @@ module.exports = {
     "port": 3000,
     "jwt_secret": "YOUR_SECRET_KEY",
     "jwt_expiration_in_seconds": 36000,
-    "environment": "dev", // Possible: docker, dev, test, prod
     "permissionLevels": {
         "NORMAL_USER": 1,
         "ADMIN": 2
     },
+    "environment": "dev", // Possible: docker, dev, test, prod
     "HTTPS":"true",
     "openai_api_key": "YOUR_OPENAI_API_KEY",  // Replace with your key, you can try this functionalitty in production env
-    "dbURI": "YOUR_MONGODB_CONNECTION_STRING" // Not needed if env = dev
+    "dbURI": "YOUR_MONGODB_CONNECTION_STRING" // Replace with your mongodb connection string
 };
 ```
 
-3. Run `docker-compose up`
-4. Navigate to `http://localhost:4200/`
+### Configuration DOCKER & HTTP
+1. Create the `/api/env.js` file to set the `environment` key to `docker`:
+    ```javascript
+    "environment": "docker",
+    "HTTPS":"false"
+    ```
+
+2. Run `docker-compose up`
+3. Navigate to `http://localhost:4200/`
+
+### Configuration DEV & HTTPS
+1. Create the `/api/env.js` file to set the `environment` key to `docker`:
+    ```javascript
+    "environment": "dev",
+    "HTTPS":"true"
+    ```
+
+Don't forget to update mongodb connection string.
+
+2. Generate a Self-Signed SSL Certificate
+`openssl genrsa -out server.key 2048`
+`openssl req -new -x509 -key server.key -out server.cert -days 3650 -subj /CN=localhost`
+
+3. Copy `server.key` and `server.cert` in `/api/cert` & `/front/cert` dir
+4. `cd api`
+5. `npm start`
+6. `cd ../front`
+7. `ng serve --configuration https`
 
 ## Initialization of Database
 

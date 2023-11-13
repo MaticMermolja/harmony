@@ -34,12 +34,12 @@
           },
           "configurations": {
             "production": {
-              
+              "optimization": true,
               "budgets": [
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "3mb"
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -68,6 +68,13 @@
             },
             "development": {
               "browserTarget": "lifeapp:build:development"
+            },
+            "https": {
+              "browserTarget": "lifeapp:build:development",
+              "ssl": true,
+              "sslKey": "cert/server.key",
+              "sslCert": "cert/server.cert",
+              "port": 443
             }
           },
           "defaultConfiguration": "development"
