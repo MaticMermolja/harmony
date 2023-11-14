@@ -1,9 +1,9 @@
 const express = require('express');
-const userController = require('../workers/UserWorker.js');
-const initController = require('../workers/InitWorker.js');
-const boardingController = require('../workers/BoardingWorker.js');
-const adminController = require('../workers/AdminWorker.js');
-const openAIController = require('../workers/OpenAIWorker.js');
+const userController = require('../workers/UserWorker');
+const boardingController = require('../workers/BoardingWorker');
+const adminController = require('../workers/AdminWorker');
+const openAIController = require('../workers/OpenAIWorker');
+const passportWorker = require('../workers/PassportWorker');
 const verifyUserMiddleware = require('../middlewares/verifyUser');
 const config = require('../env.js');
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -21,6 +21,20 @@ router.post('/auth/login', [
     ]);
 
 router.post('/auth/register', userController.executeRegisterUser);
+
+// This is part of routes.config.js
+// This code needs to be changed, so it will use functions in Passport.js
+// It is imported like this -> const passportWorker = require('../workers/PassportWorker');
+// Use this worker for authenticate methods
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(request, response) {
+    // Successful authentication, redirect home.
+    response.redirect('/');
+});
 
 // Boarding
 router.get('/utils/getBoardingLevel', [
