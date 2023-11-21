@@ -26,15 +26,15 @@ router.post('/auth/register', userController.executeRegisterUser);
 // This code needs to be changed, so it will use functions in Passport.js
 // It is imported like this -> const passportWorker = require('../workers/PassportWorker');
 // Use this worker for authenticate methods
-router.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile', 'email'] }));
+// router.get('/auth/google',
+//   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(request, response) {
-    // Successful authentication, redirect home.
-    response.redirect('/');
-});
+// router.get('/auth/google/callback', 
+//   passport.authenticate('google', { failureRedirect: '/login' }),
+//   function(request, response) {
+//     // Successful authentication, redirect home.
+//     response.redirect('/');
+// });
 
 // Boarding
 router.get('/utils/getBoardingLevel', [
