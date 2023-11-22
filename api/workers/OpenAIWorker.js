@@ -76,9 +76,9 @@ exports.fetchInspirationalImage = async (request, response) => {
         
         console.log('Inspiration image set to:', imageUrl);
 
-        downloadImageAndSave(aiQuote, imageUrl)
-            .then(() => console.log('Image downloaded and saved.'))
-            .catch(err => console.error('Error in downloading/saving image:', err));
+        // downloadImageAndSave(aiQuote, imageUrl)
+        //    .then(() => console.log('Image downloaded and saved.'))
+        //    .catch(err => console.error('Error in downloading/saving image:', err));
 
         response.json({ inspirationImage: aiImageResponse.data[0].url });
     } catch (err) {
@@ -113,7 +113,6 @@ const downloadImageAndSave = async (aiQuote, imageUrl) => {
         console.log('[downloadImageAndSave] Image saved:', imagePath);
     } catch (err) {
         console.error('[downloadImageAndSave] Error:', err);
-        throw err;
     }    
 }
 
