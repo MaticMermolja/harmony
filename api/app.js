@@ -6,7 +6,6 @@ const routes = require('./routes/routes.config')
 const { initInsertQuestions } = require('./models/Question')
 const { initInsertActions } = require('./models/Action')
 const { initInsertAdmin } = require('./models/User')
-const rateLimitMiddleware = require("./middlewares/rateLimit");
 const cors = require('cors')
 const env = require('./env.js')
 const compression = require('compression')
@@ -36,11 +35,10 @@ if(env.environment == "prod") {
 }
 
 app.use(helmet());
-app.use(helmet.frameguard({ action: 'deny' }));
-app.use(helmet.xssFilter());
-app.use(helmet.noSniff());
+//app.use(helmet.frameguard({ action: 'deny' }));
+//app.use(helmet.xssFilter());
+//app.use(helmet.noSniff());
 
-app.use(rateLimitMiddleware);
 app.use(bodyParser.json({ limit: '1mb' }));
 
 console.log(dbURI);
