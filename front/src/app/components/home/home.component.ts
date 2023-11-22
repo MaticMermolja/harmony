@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
     this.http.get<{ inspirationQuote: string; }>(`${this.baseUrl}/user-inspiration-quote`).subscribe({
       next: (data) => {
         this.inspirationQuote = data.inspirationQuote;
-        // this.fetchInspirationalImage(data.inspirationQuote);
+        this.fetchInspirationalImage(data.inspirationQuote);
       },
       error: (error) => {
         console.error('Error fetching inspiration quote:', error);
