@@ -16,32 +16,38 @@ Vagrant.configure("2") do |config|
   
     # Provisioning scripts
     config.vm.provision "shell", inline: <<-SHELL
-      # Update and install prerequisites
-      apt-get update
-      apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-  
-      # Add Docker’s official GPG key
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  
-      # Set up the Docker repository
-      add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  
-      # Install Docker CE
-      apt-get update
-      apt-get install -y docker-ce
-  
-      # Install Docker Compose
-      curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      chmod +x /usr/local/bin/docker-compose
+    # Update and install prerequisites
+    apt-get update
+    apt-get install -y apt-transport-https ca-certificates curl software-properties-common git
 
-      # Clone your GitHub repository
-      git clone https://github.com/MaticMermolja/harmony.git /home/vagrant/harmony
+    # Add Docker’s official GPG key
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-      # Navigate to your project directory
-      cd /home/vagrant/harmony
+    # Set up the Docker repository
+    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-      # Run Docker Compose (assuming you have a docker-compose.yml)
-      docker-compose -f docker-compose.dev.yml up -d
-      SHELL
-  end
+    # Install Docker CE
+    apt-get update
+    apt-get install -y docker-ce
+
+    # Install Docker Compose
+    curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+
+    # Install Node.js (using NodeSource for a more recent version)
+    curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+
+    # Clone your GitHub repository
+    git clone https://github.com/MaticMermolja/harmony.git /home/vagrant/harmony
+
+    # Npm install (in the correct directory)
+    cd /home/vagrant/harmony/api
+    npm install
+
+    # Run Docker Compose (assuming you have a docker-compose.yml)
+    cd /home/vagrant/harmony
+    docker-compose -f docker-compose.dev.yml up -d
+    SHELL
+end
   

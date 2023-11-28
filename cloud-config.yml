@@ -1,0 +1,60 @@
+#cloud-config
+packages:
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg-agent
+  - software-properties-common
+  - nginx
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - nodejs
+
+write_files:
+  - path: /etc/sysctl.d/99-enable-ipv4-forwarding.conf
+    content: |
+      net.ipv4.conf.all.forwarding=1
+  - path: /home/vagrant/harmony/api/env.js
+    content: |
+      module.exports = {
+          "port": 3000,
+          "jwt_secret": "YOUR_SECRET_KEY",
+          "jwt_expiration_in_seconds": 36000,
+          "permissionLevels": {
+              "NORMAL_USER": 1,
+              "ADMIN": 2
+          },
+          "environment": "docker", // Possible: docker, dev, test, prod
+          "HTTPS":"false",
+          "openai_api_key": "YOUR_OPENAI_API_KEY",
+          "dbURI": "mongodb://mongo/happymedb"
+      }
+
+groups:
+  - docker
+
+system_info:
+  default_user:
+    groups: [docker]
+
+runcmd:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - apt-get update -y
+  - systemctl enable docker
+  - systemctl enable nginx
+
+  # Install Node.js
+  - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
+
+  # Clone the repository and install dependencies
+  - git clone https://github.com/MaticMermolja/harmony.git /opt/lifeapp
+  - cd /opt/lifeapp/api && npm install
+  - cd /opt/lifeapp/front && npm install
+
+  # Docker Compose actions
+  - cd /opt/lifeapp
+  - docker-compose pull
+  - docker-compose -f docker-compose.dev.yml up -d
