@@ -15,7 +15,7 @@ write_files:
   - path: /etc/sysctl.d/99-enable-ipv4-forwarding.conf
     content: |
       net.ipv4.conf.all.forwarding=1
-  - path: /home/vagrant/harmony/api/env.js
+  - path: /tmp/env.js
     content: |
       module.exports = {
           "port": 3000,
@@ -25,10 +25,10 @@ write_files:
               "NORMAL_USER": 1,
               "ADMIN": 2
           },
-          "environment": "docker", // Possible: docker, dev, test, prod
+          "environment": "dev", // Possible: docker, dev, test, prod
           "HTTPS":"false",
           "openai_api_key": "YOUR_OPENAI_API_KEY",
-          "dbURI": "mongodb://mongo/happymedb"
+          "dbURI": "mongodb://localhost:27017/happymedb"
       }
 
 groups:
@@ -39,22 +39,37 @@ system_info:
     groups: [docker]
 
 runcmd:
-  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-  - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - apt-get update -y
-  - systemctl enable docker
-  - systemctl enable nginx
-
   # Install Node.js
-  - curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+  - curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
   - sudo apt-get install -y nodejs
 
-  # Clone the repository and install dependencies
-  - git clone https://github.com/MaticMermolja/harmony.git /opt/lifeapp
-  - cd /opt/lifeapp/api && npm install
-  - cd /opt/lifeapp/front && npm install
+  # Install Angular CLI globally for serving the frontend
+  - npm install -g @angular/cli
 
-  # Docker Compose actions
-  - cd /opt/lifeapp
-  - docker-compose pull
-  - docker-compose -f docker-compose.dev.yml up -d
+  # Clone the repository
+  - git clone https://github.com/MaticMermolja/harmony.git /opt/lifeapp
+  - mv /tmp/env.js /opt/lifeapp/api
+
+  # Install dependencies for backend
+  - cd /opt/lifeapp/api
+  - npm install
+
+  # Install dependencies for frontend
+  - cd /opt/lifeapp/front
+  - npm install
+
+  # MongoDB Installation and Setup
+  - wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -
+  - echo "deb [arch=amd64,arm64] http://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list
+  - sudo apt-get update
+  - sudo apt-get install -y mongodb-org
+  - sudo systemctl start mongod
+  - sudo systemctl enable mongod
+
+  # Start Node.js backend (replace 'app.js' with your main server file if different)
+  # Note: This will run in the background
+  - nohup node /opt/lifeapp/api/app.js &
+
+  # Start Angular frontend
+  # Note: This will run in the background on port 4200
+  - nohup ng serve --port 4200 --host 0.0.0.0 &
