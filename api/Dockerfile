@@ -1,21 +1,22 @@
-FROM node:18
+# Use a slim version of the Node.js official image for development
+FROM node:18-slim
 
-# Create app directory
+# Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Only copy package.json and other necessary files
+# Note: We're assuming you're managing dependencies on the host in development
 COPY package*.json ./
-RUN npm install
-# If you are building your code for production
-# RUN npm ci --omit=dev
 
-# Bundle app source
+# Optionally, if you have scripts that need to be run during the build
+# You can keep the npm install here but it won't be used with the volume mounting
+# RUN npm install
+
+# Copy the rest of your application code
 COPY . .
 
-# TODO: External volume for app files
-
+# Your application's default port, expose it
 EXPOSE 3000
 
-CMD ["npm", "run", "start"]
+# The command to run your application
+CMD ["npm", "start"]

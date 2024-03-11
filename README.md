@@ -16,12 +16,16 @@ In utilizing our application, remember that the power to change, adapt, and grow
 
 ## Production accessable
 
-https://inharmonyapp.com/
-
-API swagger docs [Only accessable locally]
-http://localhost:3000/api/docs
+PRODUCTION CLOSED! - https://inharmonyapp.com/
 
 Presentation link: https://docs.google.com/presentation/d/1hnGr0d16PvW40GCBoDu_ywF8zsT1OOQitSrz59iOzGE/
+
+## Playwright
+
+- Follow the [official instructions](https://playwright.dev/docs/intro#installing-playwright) to install Playwright.
+- Append IDE files to `.gitignore` (`.vscode`, `.idea`).
+- Modify `playwright.config.ts`.
+
 
 ## Running the Application Locally
 
