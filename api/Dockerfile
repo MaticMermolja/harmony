@@ -8,9 +8,8 @@ WORKDIR /usr/src/app
 # Note: We're assuming you're managing dependencies on the host in development
 COPY package*.json ./
 
-# Optionally, if you have scripts that need to be run during the build
-# You can keep the npm install here but it won't be used with the volume mounting
-# RUN npm install
+# Install dependencies
+RUN npm install
 
 # Copy the rest of your application code
 COPY . .

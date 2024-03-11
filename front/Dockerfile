@@ -1,19 +1,20 @@
-# Stage 1: Build the Angular application
-FROM node:18-alpine as build
+# Use the official Node.js 18 image as a base
+FROM node:18-alpine
 
+# Set the working directory in the container
 WORKDIR /app
+
+# Copy the package.json and package-lock.json to leverage Docker cache
 COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy the rest of your application's code
 COPY . .
-RUN npm run build -- --configuration production
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:alpine
+# Expose the port the app runs on
+EXPOSE 4200
 
-# Copy the build output to replace the default nginx contents.
-COPY --from=build /app/dist/lifeapp /usr/share/nginx/html
-
-# Expose port 80 to the Docker host, so we can access it from the outside.
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Start the application
+CMD ["npm", "start"]

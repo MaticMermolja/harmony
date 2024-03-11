@@ -1,0 +1,51 @@
+version: "2.2"
+services:
+  api:
+    container_name: lifeapp-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./api:/usr/src/app
+    networks:
+      - lifeapp-network
+    depends_on:
+      - mongo
+
+  frontend:
+    container_name: lifeapp-frontend
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - lifeapp-network
+
+  mongo:
+    image: mongo
+    container_name: lifeapp-mongo
+    ports:
+      - "27017-27019:27017-27019"
+    networks:
+      - lifeapp-network
+
+  playwright:
+    container_name: playwright-test
+    build:
+      context: ./playwright
+      dockerfile: Dockerfile
+    depends_on:
+      - api
+      - frontend
+      - mongo
+    volumes:
+      - ./playwright/test-results:/app/test-results
+
+
+networks:
+  lifeapp-network:
+    name: lifeapp-network
+    driver: bridge
