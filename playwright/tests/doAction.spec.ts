@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 import { registerUser, loginUser, completeBoarding } from './utils';
 
 test('do action test', async ({ page }) => {
+    console.log('Starting do action test...');
     const username = `user${new Date().getTime()}@example.com`;
     const password = 'password123';
 

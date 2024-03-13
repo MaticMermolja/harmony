@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 import { registerUser, loginUser, completeBoarding } from './utils';
 
 test('search and do action test', async ({ page }) => {
+  console.log('Starting search and do action test...');
   // Generate unique login data for this test
   const username = `user${new Date().getTime()}@example.com`;
   const password = 'admin';

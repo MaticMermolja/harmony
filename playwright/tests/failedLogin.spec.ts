@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import { registerUser, loginUser } from './utils';
 
 test('wrong login test', async ({ page }) => {
+    console.log('Starting wrong login test...');
     await page.goto('http://frontend:4200/');
     await page.goto('http://frontend:4200/auth/login');
 

@@ -3,6 +3,7 @@ import { test, expect } from '@playwright/test';
 import { registerUser, loginUser, completeBoarding } from './utils';
 
 test('logout test', async ({ page }) => {
+    console.log('Starting logout test...');
     const username = `user${new Date().getTime()}@example.com`;
     const password = 'password123';
 
