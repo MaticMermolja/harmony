@@ -1,4 +1,4 @@
-version: "2.2"
+version: "3.6"
 services:
   api:
     container_name: lifeapp-api
@@ -13,6 +13,12 @@ services:
       - lifeapp-network
     depends_on:
       - mongo
+      - frontend
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', res => process.exit(res.statusCode === 200 ? 0 : 1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
 
   frontend:
     container_name: lifeapp-frontend
@@ -20,7 +26,7 @@ services:
       context: ./front
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "4200:4200"
     networks:
       - lifeapp-network
 
@@ -38,12 +44,10 @@ services:
       context: ./playwright
       dockerfile: Dockerfile
     depends_on:
-      - api
-      - frontend
-      - mongo
-    volumes:
-      - ./playwright/test-results:/app/test-results
-
+      api:
+        condition: service_healthy 
+    networks:
+      - lifeapp-network
 
 networks:
   lifeapp-network:

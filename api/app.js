@@ -101,6 +101,10 @@ app.use(morgan('dev'));
 // Register routes
 app.use('/api', routes);
 
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'up' });
+});
+
 app.use((request, response) => {
     response.status(404).render('index');
 });

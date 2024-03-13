@@ -1,8 +1,8 @@
 import { Page, expect } from '@playwright/test';
 
 export async function registerUser(page: Page, username: string, password: string) {
-    await page.goto('http://localhost:4200/');  
-    await page.goto('http://localhost:4200/auth/login');
+    await page.goto('http://frontend:4200/');  
+    await page.goto('http://frontend:4200/auth/login');
 
     await page.getByRole('link', { name: 'Register' }).click();
     await page.getByLabel('First Name*').click();
@@ -17,8 +17,8 @@ export async function registerUser(page: Page, username: string, password: strin
 }
 
 export async function loginUser(page: Page, username: string, password: string) {
-    await page.goto('http://localhost:4200/');
-    await page.goto('http://localhost:4200/auth/login');
+    await page.goto('http://frontend:4200/');
+    await page.goto('http://frontend:4200/auth/login');
 
     await page.getByLabel('Email*').click();
     await page.getByLabel('Email*').fill(username);

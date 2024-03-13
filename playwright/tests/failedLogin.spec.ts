@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { registerUser, loginUser } from './utils';
 
 test('wrong login test', async ({ page }) => {
-    await page.goto('http://localhost:4200/');
-    await page.goto('http://localhost:4200/auth/login');
+    await page.goto('http://frontend:4200/');
+    await page.goto('http://frontend:4200/auth/login');
 
     // Wrong combination of username and password
     // Rejection message: Login failed. Please check your credentials and try again.
