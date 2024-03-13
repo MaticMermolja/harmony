@@ -1,4 +1,4 @@
-  import { Component } from '@angular/core';
+  import { Component, OnInit  } from '@angular/core';
   import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
   import { environment } from 'src/environments/environments';
   import { HttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@
     selector: 'app-boarding-final',
     templateUrl: './boarding-final.component.html'
   })
-  export class BoardingFinalComponent {
+  export class BoardingFinalComponent implements OnInit {
     items = [
       { name: 'Body', importance: 'Most important' },
       { name: 'Mind', importance: 'Very important' },
@@ -28,6 +28,10 @@
       private connectionService: ConnectionService
     ) {}
     
+    ngOnInit() {
+      this.initializeRankings();
+    }
+
     public isConnected(): boolean {
       return this.connectionService.isConnected;
     }
@@ -35,6 +39,10 @@
     drop(event: any) {
       const dropEvent = event as CdkDragDrop<{ name: string; importance: string; }[]>;
       moveItemInArray(this.items, dropEvent.previousIndex, dropEvent.currentIndex);
+      this.updateRanking();
+    }
+
+    initializeRankings() {
       this.updateRanking();
     }
   
