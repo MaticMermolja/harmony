@@ -40,6 +40,8 @@ services:
 
   playwright:
     container_name: playwright-test
+    environment:
+      - PWDEBUG=1
     build:
       context: ./playwright
       dockerfile: Dockerfile

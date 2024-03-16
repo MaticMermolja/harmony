@@ -22,5 +22,7 @@ test('search and do action test', async ({ page }) => {
   await page.getByPlaceholder('Search for actions...').fill('volunteer for a cause');
   await page.getByRole('button', { name: 'Done' }).click();
   await page.getByText('Show graph').click();
+
+  await page.getByRole('link', { name: 'Logout' }).click();
 });
 

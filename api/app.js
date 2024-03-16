@@ -28,7 +28,7 @@ if(env.environment == "prod") {
   }));
 } else {
   app.use(cors({
-    origin: ['http://localhost:4200', 'https://localhost:4200', 'https://localhost'],
+    origin: ['http://localhost:4200', 'https://localhost:4200', 'https://localhost', 'http://frontend', 'http://frontend:4200'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true
   }));

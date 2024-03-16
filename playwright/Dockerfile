@@ -18,4 +18,4 @@ RUN apt-get update && apt-get install -y xvfb \
 COPY . .
 
 # Run init.sh at container startup
-CMD /bin/bash -c './init.sh'
+CMD './init.sh'

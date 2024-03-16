@@ -35,4 +35,5 @@ test('do action test', async ({ page }) => {
     console.log(`Updated Body Stat: ${updatedValue}`);
 
     expect(updatedValue).not.toBe(initialValue);
+    await page.getByRole('link', { name: 'Logout' }).click();
 });
